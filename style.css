@@ -1,0 +1,437 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+
+.navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 25px 9%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    /* Opacity(if only opacity the navbar is not fully hidden when cursor hovers 1.2s before loading the navbar) and visibility(if only visibility navbar animation appears roughly) ensures the navbar appears smoothly when loading  */
+    visibility: hidden;
+    opacity: 0;
+    animation: show-content 1.5s linear forwards;
+    animation-delay: 1.2s;
+    
+
+}
+
+@keyframes show-content {
+    100%{
+        visibility: visible;
+        opacity: 1;
+
+    }
+}
+
+.navbar .logo {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar ul li {
+    list-style: none;
+    margin-left: 35px;
+}
+
+.navbar ul li a {
+    font-size: 20px;
+    font-weight: 500;
+    /* for a smooth transition of colors from white to lemongreen */
+    transition: 0.6s;
+
+}
+
+
+.navbar ul li:hover a,
+.navbar ul li .active {
+
+    color: #7cf03d;
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    gap: 100px;
+    padding: 60px 9% 0;
+    color: white;
+
+     /* Opacity(if only opacity the navbar is not fully hidden when cursor hovers 1.2s before loading the navbar) and visibility(if only visibility navbar animation appears roughly) ensures the navbar appears smoothly when loading  */
+     visibility: hidden;
+     opacity: 0;
+     animation: show-content 1.5s linear forwards;
+     animation-delay: 1.6s;
+}
+
+
+.home-info h1 {
+    font-size: 55px;
+}
+
+.home-info h2 {
+    /* use display inlineblock so the width follows the existing text */
+    display: inline-block;
+    font-size: 32px;
+    margin-top: -10px;
+}
+.home-info h2 span{
+    display: inline-block;
+    position: relative;
+    color: transparent;
+    /* Giving a green outer txt layer */
+    -webkit-text-stroke: .7px #7cf03d;
+    /* linear infinite so long as the page is open animation will keep running */
+    animation: display-text 16s linear infinite;
+    /* Animation duration of 25s, every 5sec the animation txt changes in the number of index set (5index)  */
+    animation-delay: calc( -4s * var(--i));
+
+}
+
+@keyframes display-text {
+    /* 0% text appear on the screen, 25% text starts to disappear from the screen and will run until 100%, return=0% and displayinline block property */
+    25%,100%{
+        display: none;
+    }
+    
+}
+.home-info h2 span::before{
+    content: attr(data-text);
+    position: absolute;
+    width: 0;
+    border-right: 2px solid #7cf03d;
+    color: #7cf03d;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: fill-text 4s linear infinite;
+}
+
+@keyframes fill-text {
+    10%,100%{
+        width: 0;
+    }
+
+    70%,90%{
+        width: 100%;
+    }
+    
+}
+.home-info p {
+    font-size: 16px;
+    margin: 10px 0 25px;
+
+}
+
+.home-info .btn-sci {
+    display: flex;
+    align-items: center;
+
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 30px;
+    background: #7cf03d;
+    border: 2px solid #7cf03d;
+    border-radius: 40px;
+
+    box-shadow: 0 0 20px #7cf03d;
+
+    /* Styling the button text */
+    font-size: 16px;
+    color: #1f242d;
+    font-weight: 600;
+    /* To make transition smoother when cursor hovers */
+    transition: .5s;
+}
+
+
+.btn:hover {
+    background: transparent;
+    color: #7cf03d;
+    box-shadow: none;
+}
+
+
+.home-info .btn-sci .sci {
+    margin-left: 20px;
+}
+
+.home-info .btn-sci .sci a {
+    display: inline-flex;
+    padding: 8px;
+    /* To give a complete circle */
+    border: 2px solid #7cf03d;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #7cf03d;
+    margin: 0 8px;
+    transition: .5s;
+}
+
+.home-info .btn-sci .sci a:hover {
+    background: #7cf03d;
+    color: #1f242d;
+    box-shadow: 0 0 10px #7cf03d;
+
+}
+
+.home-img .img-box {
+    position: relative;
+    height: 32vw;
+    width: 34vw;
+   
+    border-radius: 50%;
+    /* Padding 5px ensures red overlaps a little on the img edge */
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* hides the green in the background */
+    overflow: hidden;
+}
+
+.home-img .img-box::before, 
+.home-img .img-box::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: conic-gradient(transparent, transparent, transparent, #7cf03d);
+    transform: rotate(0deg);
+    animation: rotate-border 10s linear infinite;
+}
+
+.home-img .img-box::after {
+    animation-delay: -5s;
+}
+
+@keyframes rotate-border {
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.home-img .img-box .img-item{
+    /* parent image img item class bc the child is position absolute it will look for the position of the parent which is relative to the body */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #1f242d;
+    border-radius: 50%;
+    border: .1px solid #1f242d;
+    
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    /* for the img to fit inside the circle */
+    overflow: hidden;
+}
+
+.home-img .img-box .img-item img{
+    position: absolute;
+    /* For the image to move upwards while respecting its central positioning top -25px was given moving the image upwards */
+    top: -25px;
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    /* To blend bg color with photo bg color and give a cool effect of almost blur */
+    mix-blend-mode: lighten;
+}
+
+
+.bars-animation{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    /* to align the box sideways, display flex */
+    display: flex;
+    /* To show content on screen */
+    z-index: -1;
+}
+
+.bars-animation .bar{
+    width: 100%;
+    height: 100%;
+    background: #1f242d;
+  
+    /* to hide the content on the top of our screen */
+    transform: translateY(-100%);
+    /* animation */
+    /* to maintain the value set by @keyframe 0%, so that the background moves vertically down before filling the screen */
+    animation: show-bars .9s ease-in-out forwards;
+    animation-delay: calc(.1s * var(--i));
+}
+
+h2{
+    margin: 5px;
+}
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 300px 2rem;
+    animation: fadeIn 1s ease-out;
+
+
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero h2 {
+    font-size: 1.5rem;
+    color: #00bcd4;
+    min-height: 40px;
+    margin-bottom: 1rem;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 0 10px rgba(4, 158, 17, 0.836);
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 500px;
+    margin: 3rem auto;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .contact-form button {
+    padding: 0.8rem;
+    background: #00d435;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .contact-form button:hover {
+    background: #09cc5a;
+  }
+  
+.about-section{
+
+    padding: 100px 10px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #53d607 ;
+    margin: 100px;
+    /* text-wrap: wrap; */
+}
+
+.btn-about{
+    margin-top: 15px;
+    display: inline-block;
+    padding: 10px 30px;
+    background: #7cf03d;
+    border: 2px solid #7cf03d;
+    border-radius: 40px;
+
+    box-shadow: 0 0 20px #7cf03d;
+
+    /* Styling the button text */
+    font-size: 16px;
+    color: #1f242d;
+    font-weight: 600;
+    /* To make transition smoother when cursor hovers */
+    transition: .5s;
+}
+
+.btn-about:hover{
+    background: transparent;
+    color: #7cf03d;
+    box-shadow: none;
+}
+
+.GS-phrase{
+
+    font-family: 'Courier New', Courier, monospace;
+}
+
+footer{
+
+    padding: 10px;
+}
+
+@keyframes show-bars {
+    100%{
+        transform: translateY(0%)
+    }
+}
+
+.pharse{
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    
+
+    justify-content: center;
+    background: #689e5c;
+}
+
+
+
+footer {
+    font-family: 'Courier New', Courier, monospace;
+
+    text-align: center;
+    
+
+    justify-content: center;
+    background: #689e5c;
+}
+
+
+.about-pic{
+    border: 50%;
+}
